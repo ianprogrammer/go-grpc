@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package voucher;
+
+option go_package = "voucher/voucherpb";
+
+message Voucher {
+
+   string customerId = 1;
+   string orderId = 2;
+   string campaignId = 3;
+}
+
+message VoucherRequest {
+    Voucher voucher = 1;
+}
+
+message VoucherResponse {
+
+    string customerId = 1;
+    int32 value = 2;
+}
+
+message VoucherStreamRequest {
+   string campaignId = 1;
+}
+
+message VoucherStreamResponse {
+
+    string customerId = 1;
+    int32 value = 2;
+}
+
+
+service VoucherService {
+
+    //unary 
+    rpc Voucher(VoucherRequest) returns (VoucherResponse) {}
+    // stream
+    rpc VoucherStream(VoucherStreamRequest) returns (stream VoucherStreamResponse) {}
+
+}
